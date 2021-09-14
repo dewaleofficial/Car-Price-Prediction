@@ -9,7 +9,7 @@ def clean_data():
     cars_df.columns = ['make', 'mileage(Km)', 'year', 'condition', 'price(₦)']
     for column in cars_df.columns:
         if column == 'make':
-            cars_df[column]= cars_df[column].replace(regex=True,to_replace=r'[1-3][0-9]{3}',value=r'')
+            cars_df[column]= cars_df[column].replace(regex=True,to_replace=' ', value = r'').replace(regex=True,to_replace=r'[1-3][0-9]{3}',value=r'')
         elif column == 'mileage(Km)':
             #remove unwanted characters and white spaces in mileage column
             cars_df['mileage(Km)'] = cars_df['mileage(Km)'].replace(regex=True,to_replace=r'\r''\n',value=r'').replace(regex=True,to_replace=r',',value=r'').replace(regex=True,to_replace=r' ',value=r'').replace(regex=True,to_replace=r'Km',value=r'')
@@ -19,6 +19,10 @@ def clean_data():
             #drop rows without year values
             cars_df.drop(cars_df.index[list(
                 map(lambda x: x.startswith('N'), cars_df['year']))], inplace=True)
+        elif column == 'condition':
+            #remove unwanted characters and white spaces in price column
+            cars_df['condition'] = cars_df['condition'].replace(regex=True,to_replace=' ',value=r'').replace(regex=True,to_replace='  ', value = r'')
+            
         elif column == 'price(₦)':
             #remove unwanted characters and white spaces in price column
             cars_df['price(₦)'] = cars_df['price(₦)'].replace(regex=True,to_replace=r'\r''\n',value=r'').replace(regex=True,to_replace='                                                                            ', value = r'').replace(regex=True,to_replace=',', value = r'').replace(regex=True,to_replace=' ', value = r'')
@@ -29,5 +33,5 @@ def clean_data():
             
 if __name__ == "__main__":
     clean_data()
-    cars_df.to_csv('clean_car_df.csv', index=False)
+    cars_df.to_csv('clean_car_df2.csv', index=False)
     # 1 80

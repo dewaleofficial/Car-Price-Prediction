@@ -33,5 +33,5 @@ def clean_data():
             
 if __name__ == "__main__":
     clean_data()
-    cars_df.to_csv('clean_car_df2.csv', index=False)
+    cars_df.to_csv('cars45_car_data.csv', index=False)
     # 1 80
